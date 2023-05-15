@@ -12,8 +12,19 @@ const {Sentence} = require("./models/sentence")
 const {SentenceGrade} = require("./models/sentenceGrades")
 
 
-User.hasMany(PublicBook)
-PublicBook.belongsToMany(User)
+User.hasMany(UserBook)
+UserBook.belongsTo(User)
+PublicBook.hasMany(UserBook)
+UserBook.belongsTo(PublicBook)
+PublicBook.hasMany(Sentence)
+Sentence.belongsTo(PublicBook)
+Sentence.hasMany(SentenceGrade)
+SentenceGrade.belongsTo(Sentence)
+User.hasMany(SentenceGrade)
+SentenceGrade.belongsTo(User)
+
+
+
 
 
 const app = express()
