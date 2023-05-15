@@ -19,7 +19,7 @@ The project is to make a language learning website using the API 'Text Translato
 		The user can submit the sentence to be graded pass fail
 
 # Screens
-	loging/register
+	log in/register
 	Practice All sentences
 	Practice Mistake Sentences
 	Personal Library
