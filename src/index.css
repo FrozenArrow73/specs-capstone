@@ -19,6 +19,7 @@ footer {
   justify-content: center;
   align-items: center;
   background-color: paleturquoise;
+  gap: 10px;
   height: 100px;
   width: 100vw;
 }
@@ -28,6 +29,7 @@ button {
   border-radius: 20px;
   width: 70px;
   height: 70px;
+  padding: 5px;
 }
 button:hover {
   border-color: turquoise;

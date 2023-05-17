@@ -45,14 +45,14 @@ function App() {
       <div className='body'>
         <Routes>
           <Route path='/' element={isAuthorized? <PracticeAll/> : <Navigate to='/login'/>}/>
-          <Route path="/mistake" element={isAuthorized? <PracticeMistake/> : <Navigate to='/login'/>}/>
+          <Route path="/mistakes" element={isAuthorized? <PracticeMistake/> : <Navigate to='/login'/>}/>
           <Route path="/personal" element={isAuthorized? <PersonalLibrary/> : <Navigate to='/login'/>}/>
           <Route path="/public" element={isAuthorized? <PublicLibrary/> : <Navigate to='/login'/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/*" element={<Navigate to='/'/>}/>
         </Routes>
       </div>
-      <Foot/>
+      <Foot isAuthorized={isAuthorized}/>
     </div>
   );
 }
