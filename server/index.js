@@ -10,6 +10,7 @@ const {PublicBook} = require("./models/publicBook")
 const {UserBook} = require("./models/userBook")
 const {Sentence} = require("./models/sentence")
 const {SentenceGrade} = require("./models/sentenceGrades")
+const {register, login} = require("./controllers/auth")
 
 
 User.hasMany(UserBook)
@@ -23,14 +24,12 @@ SentenceGrade.belongsTo(Sentence)
 User.hasMany(SentenceGrade)
 SentenceGrade.belongsTo(User)
 
-
-
-
-
 const app = express()
 app.use(express.json())
 app.use(cors())
 
+app.post("/api/register", register)
+app.post("/api/login", login)
 
 
 sequelize.sync().then(() => {
