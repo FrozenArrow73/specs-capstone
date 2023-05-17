@@ -26,14 +26,14 @@ function Login() {
         setUsername("")
 
         if(authContext.register) {
-            axios.post("http://localhost:4000/api/register", body).then((req, res) => {
-                console.log(req.data)
+            axios.post("http://localhost:4000/api/register", body).then((res) => {
+                authContext.login(res.data.token, res.data.expiration, res.data.userId)
             }).catch((err) => {
                 console.log(err)
             })
         } else {
-            axios.post("http://localhost:4000/api/login", body).then((req, res) => {
-                console.log(req.data)
+            axios.post("http://localhost:4000/api/login", body).then((res) => {
+                authContext.login(res.data.token, res.data.expiration, res.data.userId)
             }).catch((err) => {
                 console.log(err)
             }) 
