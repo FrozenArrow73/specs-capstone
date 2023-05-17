@@ -1,10 +1,8 @@
 import React, {useContext, useState} from 'react'
 import AuthContext from '../store/authContext'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 function Login() {
-    const navigate = useNavigate()
     const authContext = useContext(AuthContext)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -36,7 +34,6 @@ function Login() {
         } else {
             axios.post("http://localhost:4000/api/login", body).then((res) => {
                 authContext.login(res.data.token, res.data.expiration, res.data.userId)
-                navigate("/")
             }).catch((err) => {
                 console.log(err)
             }) 

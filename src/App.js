@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Head from './components/Head';
 import Foot from './components/Foot';
 import Login from './screens/Login';
@@ -14,8 +14,9 @@ import axios from 'axios';
 
 
 function App() {
-  const [isAuthorized, setIsAuthorized] = useState(true)
+  const [isAuthorized, setIsAuthorized] = useState(false)
   const authContext = useContext(AuthContext)
+  const navigate = useNavigate()
 
   useEffect(()=>{
     axios.get("http://localhost:4000/authorization", {headers: {authorization: authContext.token}})
@@ -28,6 +29,13 @@ function App() {
     })
   },[authContext.token])
 
+  useEffect(()=>{
+    if (isAuthorized) {
+      navigate("/")
+    } else {
+      navigate("/login")
+    }
+  }, [isAuthorized])
   
 
 
