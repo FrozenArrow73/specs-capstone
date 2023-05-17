@@ -1,4 +1,5 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useState, useEffect} from "react";
+import axios from "axios";
 
 let logoutTimer
 
@@ -19,10 +20,37 @@ const calculateTimeRemaining = (expiration) => {
     return remainingTime
 }
 
+const getLocalData = () => {
+    const storedToken = localStorage.getItem('token')
+    const storedExpiration = localStorage.getItem('expiration')
+    const remainingTime = calculateTimeRemaining(storedExpiration)
+
+    if (remainingTime <= 1000 * 60 * 30) {
+        localStorage.removeItem('token')
+        localStorage.removeItem('exp')
+        localStorage.removeItem("userId")
+        return null
+    }
+    
+    return {
+        token: storedToken,
+        duration: remainingTime,
+    }
+
+}
+
 export const AuthContextProvider = (props) => {
-    const [token, setToken] = useState(null)
+    const localData = getLocalData()
+  
+    let initialToken = null
+    if (localData) {
+        initialToken = localData.token
+    }
+
+    const [token, setToken] = useState(initialToken)
     const [userId, setUserId] = useState(null)
     const [register, setRegister] = useState(false)
+    
     
     const logout = () => {
         setToken(null)
@@ -45,6 +73,33 @@ export const AuthContextProvider = (props) => {
         const remainingTime = calculateTimeRemaining(expiration)
         logoutTimer = setTimeout(logout, remainingTime)
     }
+
+
+
+
+
+
+
+
+    // const [isAuthorized, setIsAuthorized] = useState(true)
+  
+    // useEffect(()=>{
+    //   axios.get("http://localhost:4000/authorization", {headers: {authorization: token}})
+    //     .then((res)=> {
+    //       console.log("setting isAuthorized to true")
+    //       setIsAuthorized(true)
+    //   }).catch((err)=> {
+    //     console.log(err)
+    //       setIsAuthorized(false)
+    //       logout()
+    //   })
+    // },[token])
+
+
+
+
+
+
 
     const contextValue = {
         token,

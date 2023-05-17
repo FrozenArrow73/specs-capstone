@@ -2,16 +2,17 @@ import React, {useContext} from 'react'
 import AuthContext from '../store/authContext'
 
 function Foot() {
-    const {register, setRegister} = useContext(AuthContext)
+    const {register, setRegister, logout} = useContext(AuthContext)
 
-    const handleClick = () => {
+    const handleRegister = () => {
         setRegister((currentValue) => {
             return!currentValue
         })
     }
   return (
     <footer>
-        <button onClick={handleClick}>{register?"Login":"Register"}</button>
+        <button onClick={handleRegister}>{register?"Login":"Register"}</button>
+        <button onClick={logout}>Logout</button>
     </footer>
   )
 }
