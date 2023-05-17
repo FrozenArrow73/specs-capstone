@@ -41,7 +41,25 @@ module.exports = {
             res.sendStatus(400)
         }
     },
-    login: (req, res) => {
-
+    login: async (req, res) => {
+        const {username, password} = req.body
+        const dbUser = await User.findOne({where: {username: username}})
+        if (dbUser) {
+            const isAuthenticated = bcrypt.compareSync(password, dbUser.dataValues.password)
+            if (isAuthenticated) {
+                const token = createToken(dbUser.dataValues.username, dbUser.dataValues.id)
+                const expiration = Date.now() + 1000 * 60 * 60 * 48
+                res.status(200).send({
+                    username: dbUser.dataValues.username,
+                    userId: dbUser.dataValues.id,
+                    token,
+                    expiration
+                })
+            } else {
+                res.status(400).send('Cannot log in')
+            }
+        } else {
+            res.status(400).send('Cannot log in')
+        }
     }
 }
