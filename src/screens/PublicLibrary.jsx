@@ -10,6 +10,7 @@ function PublicLibrary() {
     
     useEffect(()=>{
         axios.get(`http://localhost:4000/api/getPublicBooks/${authContext.userId}`).then((res)=> {
+            console.log(res.data)
             setPublicBooks(res.data)
             
         }).catch((err)=> {
