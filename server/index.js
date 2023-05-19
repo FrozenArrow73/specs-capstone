@@ -13,6 +13,7 @@ const {SentenceGrade} = require("./models/sentenceGrades")
 const {register, login} = require("./controllers/auth")
 const {authenticator} = require("./middleware/authenticator")
 const {seedBooks} = require("./seed/seedBooks")
+const {getPublicBooks} = require("./controllers/general")
 
 
 User.hasMany(UserBook)
@@ -34,6 +35,7 @@ app.post("/api/register", register)
 app.post("/api/login", login)
 app.get("/api/authorization", authenticator, (req, res)=> {res.sendStatus(200)})
 //app.get("/api/seedBooks", seedBooks)
+app.get("/api/getPublicBooks/:userId", getPublicBooks)
 
 
 sequelize.sync().then(() => {

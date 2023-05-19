@@ -30,6 +30,7 @@ function App() {
   },[authContext.token])
 
   useEffect(()=>{
+    
     if (isAuthorized) {
       navigate("/")
     } else {
