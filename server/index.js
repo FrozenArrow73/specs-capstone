@@ -12,6 +12,7 @@ const {Sentence} = require("./models/sentence")
 const {SentenceGrade} = require("./models/sentenceGrades")
 const {register, login} = require("./controllers/auth")
 const {authenticator} = require("./middleware/authenticator")
+const {seedBooks} = require("./seed/seedBooks")
 
 
 User.hasMany(UserBook)
@@ -31,7 +32,8 @@ app.use(cors())
 
 app.post("/api/register", register)
 app.post("/api/login", login)
-app.get("/authorization", authenticator, (req, res)=> {res.sendStatus(200)})
+app.get("/api/authorization", authenticator, (req, res)=> {res.sendStatus(200)})
+//app.get("/api/seedBooks", seedBooks)
 
 
 sequelize.sync().then(() => {

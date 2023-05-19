@@ -19,7 +19,7 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    axios.get("http://localhost:4000/authorization", {headers: {authorization: authContext.token}})
+    axios.get("http://localhost:4000/api/authorization", {headers: {authorization: authContext.token}})
       .then((res)=> {
         setIsAuthorized(true)
     }).catch((err)=> {
