@@ -18,10 +18,10 @@ function PublicLibrary() {
     }, [])
 
     const bookDisplay = publicBooks.map((book)=> {
-        return <PublicBookCard title={book.title} imgUrl={book.img_url} language={book.language}/>
+        return <PublicBookCard key={book.id} bookId={book.id} title={book.title} imgUrl={book.img_url} language={book.language}/>
     })
   return (
-    <div>{bookDisplay}</div>
+    <div className='library'>{bookDisplay}</div>
   )
 }
 

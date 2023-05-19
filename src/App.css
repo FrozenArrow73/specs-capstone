@@ -30,3 +30,41 @@
   gap: 10px;
   height: 100px;
 }
+
+.library {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  min-width: 300px;
+  width: 80%;
+  height: 100%;
+  padding: 25px;
+  overflow-y: scroll;
+}
+
+.library::-webkit-scrollbar {
+  width: 20px;
+ }
+ .library::-webkit-scrollbar-track {
+     background: rgba(0, 0, 0, 0);
+ }
+ .library::-webkit-scrollbar-thumb {
+     background: rgba(0, 0, 0, 0);
+     border: solid white;
+     border-radius: 10px;
+ 
+ }
+
+.bookCard { 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  height: 300px;
+  border: solid white;
+  border-radius: 20px;
+  padding: 10px;
+}
