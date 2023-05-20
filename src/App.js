@@ -60,7 +60,15 @@ function App() {
           <Route
             path="/personal"
             element={
-              isAuthorized ? <PersonalLibrary /> : <Navigate to="/login" />
+              isAuthorized ? (
+                <PersonalLibrary
+                  personalBooks={personalBooks}
+                  setPersonalBooks={setPersonalBooks}
+                  setPublicBooks={setPublicBooks}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
           <Route

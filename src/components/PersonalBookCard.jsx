@@ -1,9 +1,9 @@
 import React from 'react'
 
 
-function PersonalBookCard() {
+function PersonalBookCard(params) {
     const handleClick = () => {
-        
+
     }
   return (
     <div className='bookCard'>

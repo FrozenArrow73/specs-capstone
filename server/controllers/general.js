@@ -12,16 +12,10 @@ module.exports = {
                 include: [
                     {
                         model: UserBook,
-                        // where: {
-                        //     userId: {
-                        //         [Op.ne]: userId
-                        //     }
-                        // }
                     }
                 ]
             })
             const filteredPublicBooks = foundPublicBooks.filter((book) => {
-                // console.log(book.userBooks[0].userId)
                 if (book.userBooks.length === 0) {
                     return true
                 } else if( book.userBooks[0].userId == userId){
@@ -54,5 +48,28 @@ module.exports = {
             console.log(err)
             res.status(400).send("Unable to add books")
         }
-    }
+    },
+    getPersonalBooks: async (req, res) => {
+        const userId = req.params.userId
+
+        try {
+            const foundPersonalBooks = await PublicBook.findAll({
+                attributes: ["title", "id", "img_url", "language"],
+                include: [
+                    {
+                        model: UserBook,
+                        where: {
+                            userId: {
+                                [Op.eq]: userId
+                            }
+                        }
+                    }
+                ]
+            })
+            res.status(200).send(foundPersonalBooks)
+        } catch (err) {
+            console.log(err)
+            res.status(400).send("Unable to load books")
+        }
+    } 
 }
