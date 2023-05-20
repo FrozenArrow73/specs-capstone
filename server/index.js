@@ -35,8 +35,8 @@ app.post("/api/register", register)
 app.post("/api/login", login)
 app.get("/api/authorization", authenticator, (req, res)=> {res.sendStatus(200)})
 //app.get("/api/seedBooks", seedBooks)
-app.get("/api/getPublicBooks/:userId", getPublicBooks)
-app.post("/api/addPersonalBook/:bookId/:userId", addPersonalBook)
+app.get("/api/getPublicBooks/:userId", authenticator, getPublicBooks)
+app.post("/api/addPersonalBook/:bookId/:userId", authenticator, addPersonalBook)
 
 
 sequelize.sync().then(() => {

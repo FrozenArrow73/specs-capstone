@@ -5,7 +5,7 @@ import AuthContext from '../store/authContext'
 function PublicBookCard(params) {
   const authContext= useContext(AuthContext)
   const handleClick = () => {
-    axios.post(`http://localhost:4000/api/addPersonalBook/${params.bookId}/${authContext.userId}`).then((res) => {
+    axios.post(`http://localhost:4000/api/addPersonalBook/${params.bookId}/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res) => {
       params.setPublicBooks((publicBooks)=> {
         return publicBooks.filter((book) => {
           return book.id !== params.bookId

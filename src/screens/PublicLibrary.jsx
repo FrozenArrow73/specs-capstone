@@ -9,7 +9,7 @@ function PublicLibrary() {
     console.log(authContext.userId)
     
     useEffect(()=>{
-        axios.get(`http://localhost:4000/api/getPublicBooks/${authContext.userId}`).then((res)=> {
+        axios.get(`http://localhost:4000/api/getPublicBooks/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res)=> {
             console.log(res.data)
             setPublicBooks(res.data)
             
