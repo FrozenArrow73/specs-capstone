@@ -3,10 +3,8 @@ import axios from 'axios'
 import AuthContext from '../store/authContext'
 import PublicBookCard from '../components/PublicBookCard'
 
-function PublicLibrary() {
-    const [publicBooks, setPublicBooks] = useState([])
+function PublicLibrary({personalBooks, setPersonalBooks, publicBooks, setPublicBooks}) {
     const authContext = useContext(AuthContext)
-    console.log(authContext.userId)
     
     useEffect(()=>{
         axios.get(`http://localhost:4000/api/getPublicBooks/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res)=> {
@@ -19,7 +17,7 @@ function PublicLibrary() {
     }, [])
 
     const bookDisplay = publicBooks.map((book)=> {
-        return <PublicBookCard key={book.id} bookId={book.id} title={book.title} imgUrl={book.img_url} language={book.language} setPublicBooks={setPublicBooks}/>
+        return <PublicBookCard key={book.id} bookId={book.id} title={book.title} imgUrl={book.img_url} language={book.language} setPublicBooks={setPublicBooks} setPersonalBooks={setPersonalBooks}/>
     })
   return (
     <div className='library'>{bookDisplay}</div>
