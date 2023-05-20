@@ -4,7 +4,11 @@ const jwt = require("jsonwebtoken")
 
 module.exports = {
     authenticator: (req, res, next) => {
-        const headerToken = req.get('authorization')
+        let headerToken = req.get('authorization')
+
+        if (!headerToken){
+            headerToken = req.body.headers.authorization
+        }
 
         if (!headerToken){
             res.status(400).send("Login required")
