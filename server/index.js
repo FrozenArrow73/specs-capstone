@@ -13,6 +13,7 @@ const {SentenceGrade} = require("./models/sentenceGrades")
 const {register, login} = require("./controllers/auth")
 const {authenticator} = require("./middleware/authenticator")
 const {seedBooks} = require("./seed/seedBooks")
+const {seedBookOne} = require("./seed/seedBookOne")
 const {getPublicBooks, addPersonalBook, getPersonalBooks, deletePersonalBook} = require("./controllers/general")
 
 
@@ -33,8 +34,11 @@ app.use(cors())
 
 app.post("/api/register", register)
 app.post("/api/login", login)
-app.get("/api/authorization", authenticator, (req, res)=> {res.sendStatus(200)})
+
 //app.get("/api/seedBooks", seedBooks)
+//app.get("/api/seedBookOne", seedBookOne)
+
+app.get("/api/authorization", authenticator, (req, res)=> {res.sendStatus(200)})
 app.get("/api/getPublicBooks/:userId", authenticator, getPublicBooks)
 app.get("/api/getPersonalBooks/:userId", authenticator, getPersonalBooks)
 app.post("/api/addPersonalBook/:bookId/:userId", authenticator, addPersonalBook)
