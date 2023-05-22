@@ -18,10 +18,14 @@ module.exports = {
             const filteredPublicBooks = foundPublicBooks.filter((book) => {
                 if (book.userBooks.length === 0) {
                     return true
-                } else if( book.userBooks[0].userId == userId){
-                    return false
                 } else {
-                    return true
+                    let returnValue = true
+                    book.userBooks.forEach((userBook) => {
+                        if(userBook.userId == userId) {
+                            returnValue = false
+                        }
+                    })
+                    return returnValue
                 }
             })
             res.status(200).send(filteredPublicBooks)
@@ -71,5 +75,20 @@ module.exports = {
             console.log(err)
             res.status(400).send("Unable to load books")
         }
-    } 
+    },
+    
+    deletePersonalBook: async (req, res) => {
+        try {
+            const deletedBook = await UserBook.destroy(
+                {where: {
+                    publicBookId: req.params.bookId,
+                    userId: req.params.userId 
+                }
+            })
+            res.sendStatus(200)
+        } catch (err) {
+            console.log(err)
+            res.status(400).send("unable to delete book")
+        }
+    }
 }

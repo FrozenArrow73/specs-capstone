@@ -1,9 +1,22 @@
-import React from 'react'
-
+import React, {useContext} from 'react'
+import axios from 'axios'
+import AuthContext from '../store/authContext'
 
 function PersonalBookCard(params) {
-    const handleClick = () => {
+    const authContext = useContext(AuthContext)
 
+
+    const handleClick = () => {
+        axios.delete(`http://localhost:4000/api/deletePersonalBook/${params.bookId}/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res) => {
+
+            params.setPersonalBooks((personalBooks)=> {
+                return personalBooks.filter((book)=> {
+                    return book.id !== params.bookId
+                })
+            })
+        }).catch((err)=> {
+            console.log(err)
+        })
     }
   return (
     <div className='bookCard'>
