@@ -1,6 +1,9 @@
 const {PublicBook} = require("../models/publicBook")
 const {UserBook} = require("../models/userBook")
+const {Sentence} = require("../models/sentence")
 const {Op} = require("sequelize")
+const axios = require("axios")
+const {sequelize} = require("../util/database")
 module.exports = {
     getPublicBooks: async (req, res) => {
         const userId = req.params.userId
@@ -90,5 +93,29 @@ module.exports = {
             console.log(err)
             res.status(400).send("unable to delete book")
         }
+    },
+    getRandomSentence: async (req, res) => {
+        const userId = req.params.userId
+
+        const foundSentence = await Sentence.findAll({
+            order: sequelize.random(),
+            limit: 1,
+            attributes: ["value"],
+            include: [
+                {
+                    model: PublicBook,
+                    include: [
+                        {
+                            model: UserBook,
+                            where: {
+                                userId: userId
+                            }
+                        }
+                    ]
+                }
+            ]
+        })
+
+        console.log(foundSentence[0].value)
     }
 }

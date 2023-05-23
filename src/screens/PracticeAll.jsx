@@ -5,7 +5,7 @@ import AuthContext from '../store/authContext'
 function PracticeAll() {
   const authContext = useContext(AuthContext)
   useEffect(()=>{
-    axios.get(`/api/getRandomSentence/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res)=>{
+    axios.get(`http://localhost:4000/api/getRandomSentence/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res)=>{
       console.log(res.data)
     })
   }, [])
