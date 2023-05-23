@@ -4,6 +4,9 @@ const {Sentence} = require("../models/sentence")
 const {Op} = require("sequelize")
 const axios = require("axios")
 const {sequelize} = require("../util/database")
+require("dotenv").config()
+const {API_KEY} = process.env
+
 module.exports = {
     getPublicBooks: async (req, res) => {
         const userId = req.params.userId
@@ -96,26 +99,57 @@ module.exports = {
     },
     getRandomSentence: async (req, res) => {
         const userId = req.params.userId
-
-        const foundSentence = await Sentence.findAll({
-            order: sequelize.random(),
-            limit: 1,
-            attributes: ["value"],
-            include: [
-                {
-                    model: PublicBook,
-                    include: [
-                        {
-                            model: UserBook,
-                            where: {
-                                userId: userId
+        try {
+            const foundSentence = await Sentence.findAll({
+                order: sequelize.random(),
+                limit: 1,
+                attributes: ["value", "id"],
+                include: [
+                    {
+                        model: PublicBook,
+                        include: [
+                            {
+                                model: UserBook,
+                                where: {
+                                    userId: userId
+                                }
                             }
-                        }
-                    ]
-                }
-            ]
-        })
+                        ]
+                    }
+                ]
+            })
 
-        console.log(foundSentence[0].value)
+
+
+            const encodedParams = new URLSearchParams();
+            encodedParams.set('source_language', foundSentence[0].publicBook.language);
+            encodedParams.set('target_language', 'en');
+            encodedParams.set('text', foundSentence[0].value);
+
+            const options = {
+            method: 'POST',
+            url: 'https://text-translator2.p.rapidapi.com/translate',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'X-RapidAPI-Key': API_KEY,
+                'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
+            },
+            data: encodedParams,
+            };
+
+            const response = await axios.request(options);
+
+            const responseBody = {
+                targetLanguageSentence: foundSentence[0].value,
+                englishSentence: response.data.data.translatedText,
+                sentenceId: foundSentence[0].id
+            }
+            res.status(200).send(responseBody)
+        } catch (err) {
+            console.log(err)
+            res.status(400).send("unable to get sentence")
+        }
+        
+        
     }
 }
