@@ -46,3 +46,7 @@ img {
   height: 150px;
   border: solid white;
 }
+p {
+  display: inline-block;
+  margin: 2px;
+}

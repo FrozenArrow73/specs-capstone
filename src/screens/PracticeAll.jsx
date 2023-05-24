@@ -47,7 +47,9 @@ function PracticeAll() {
       <div className='wordCard'>
         {wordDisplay}
       </div>
-      <button>Submit</button>
+      <div>
+        <button>Submit</button>
+      </div>
     </div>
   )
 }
