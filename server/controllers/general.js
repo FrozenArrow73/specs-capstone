@@ -4,6 +4,7 @@ const {Sentence} = require("../models/sentence")
 const {Op} = require("sequelize")
 const axios = require("axios")
 const {sequelize} = require("../util/database")
+const sentence = require("../models/sentence")
 require("dotenv").config()
 const {API_KEY} = process.env
 
@@ -137,13 +138,21 @@ module.exports = {
             data: encodedParams,
             };
 
-            const response = await axios.request(options);
+            //const response = await axios.request(options);
 
+            // const responseBody = {
+            //     targetLanguageSentence: foundSentence[0].value,
+            //     englishSentence: response.data.data.translatedText,
+            //     sentenceId: foundSentence[0].id
+            // }
+
+            //!dummy data so I don accidentially overuse the API
             const responseBody = {
-                targetLanguageSentence: foundSentence[0].value,
-                englishSentence: response.data.data.translatedText,
-                sentenceId: foundSentence[0].id
+                targetLanguageSentence: "Hola, cómo estás.",
+                englishSentence: "Hi, how are you.",
+                sentenceId: 1
             }
+
             res.status(200).send(responseBody)
         } catch (err) {
             console.log(err)
