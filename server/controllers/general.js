@@ -146,7 +146,7 @@ module.exports = {
             //     sentenceId: foundSentence[0].id
             // }
 
-            //!dummy data so I don accidentially overuse the API
+            //!dummy data so I dont accidentially overuse the API
             const responseBody = {
                 targetLanguageSentence: "Hola, cómo estás.",
                 englishSentence: "Hi, how are you.",
