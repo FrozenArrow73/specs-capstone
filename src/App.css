@@ -77,6 +77,14 @@
   height: fit-content;
   max-width: 400px;
 }
+.wordCardBlue {
+  border: solid blue;
+  padding: 10px;
+  border-radius: 20px;
+  width: 80%;
+  height: fit-content;
+  max-width: 400px;
+}
 
 .practiceAll {
   display: flex;

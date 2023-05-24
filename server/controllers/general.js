@@ -149,7 +149,7 @@ module.exports = {
             //!dummy data so I dont accidentially overuse the API
             const responseBody = {
                 targetLanguageSentence: "Hola, cómo estás.",
-                englishSentence: "Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you. Hi, how are you.",
+                englishSentence: "Hi, how are you.",
                 sentenceId: 1
             }
 
