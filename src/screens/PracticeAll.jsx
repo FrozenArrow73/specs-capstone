@@ -30,21 +30,25 @@ function PracticeAll() {
   const wordDisplay = sentenceObj.words.map((word, index) => {
     return <Word word={word} index={index} setSentenceObj={setSentenceObj}/>
   })
+  const answerDisplay = sentenceObj.answer.map((answer, index) => {
+    return <Answer answer={answer} index={index} setSentenceObj={setSentenceObj}/>
+  })
   
   return (
-    <>
-      <div>
+    <div className='practiceAll'>
+      <div className='wordCard'>
         <p>
         {sentenceObj.targetLanguageSentence}
         </p>
       </div>
-      <div>
-
+      <div className='wordCard'>
+        {answerDisplay}
       </div>
-      <div>
+      <div className='wordCard'>
         {wordDisplay}
       </div>
-    </>
+      <button>Submit</button>
+    </div>
   )
 }
 
