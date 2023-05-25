@@ -49,7 +49,7 @@ function PracticeAll() {
       perfectMatch = false
     }
     if(perfectMatch) {
-      setOutcomeDisplay(<div className='wordCard'><p>Correct</p></div>)
+      setOutcomeDisplay(<p>Correct</p>  )
     } else {
       setOutcomeDisplay(
         <>
