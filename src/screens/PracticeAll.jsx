@@ -84,7 +84,7 @@ function PracticeAll() {
   }
   
   return (
-    <div className='practiceAll'>
+    <div className='practice'>
       {outcomeDisplay}
       <div className='wordCard'>
         <p>
