@@ -14,8 +14,9 @@ function PracticeAll() {
         words: []
   })
   const [outcomeDisplay, setOutcomeDisplay] = useState("")
+  const [getNextSentence, setGetNextSentence] = useState(false)
 
-  useEffect(()=>{
+  const LoadSentence = () => {
     axios.get(`http://localhost:4000/api/getRandomSentence/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res)=>{
       console.log(res.data)
       setSentenceObj({
@@ -27,40 +28,48 @@ function PracticeAll() {
       })
       
     })
+  }
+
+  useEffect(()=>{
+    LoadSentence()
   }, [])
   const wordDisplay = sentenceObj.words.map((word, index) => {
-    return <Word key={index} word={word} index={index} setSentenceObj={setSentenceObj}/>
+    return <Word key={index} word={word} index={index} setSentenceObj={setSentenceObj} getNextSentence={getNextSentence}/>
   })
   const answerDisplay = sentenceObj.answer.map((answer, index) => {
-    return <Answer key={index} answer={answer} index={index} setSentenceObj={setSentenceObj}/>
+    return <Answer key={index} answer={answer} index={index} setSentenceObj={setSentenceObj} getNextSentence={getNextSentence}/>
   })
 
   const handleClick = (event) => {
-    let perfectMatch = true
-    console.log(sentenceObj.answer)
-    console.log(sentenceObj.englishSentence)
-    if (sentenceObj.englishSentence.length === sentenceObj.answer.length) {
-      sentenceObj.englishSentence.forEach((word, index) =>{
-        if (word !== sentenceObj.answer[index]) {
-          perfectMatch = false
-        }
-      })
+    if(getNextSentence) {
+      setOutcomeDisplay("")
+      LoadSentence()
+      setGetNextSentence(false)
     } else {
-      perfectMatch = false
+      let perfectMatch = true
+      setGetNextSentence(true)
+      if (sentenceObj.englishSentence.length === sentenceObj.answer.length) {
+        sentenceObj.englishSentence.forEach((word, index) =>{
+          if (word !== sentenceObj.answer[index]) {
+            perfectMatch = false
+          }
+        })
+      } else {
+        perfectMatch = false
+      }
+      if(perfectMatch) {
+        setOutcomeDisplay(<p>Correct</p>  )
+      } else {
+        setOutcomeDisplay(
+          <>
+          <p>Incorrect</p>
+          <div className='wordCardBlue'>
+            <p>{sentenceObj.englishSentence.join(" ")}</p>
+          </div>
+          </>
+        )
+      }
     }
-    if(perfectMatch) {
-      setOutcomeDisplay(<p>Correct</p>  )
-    } else {
-      setOutcomeDisplay(
-        <>
-        <p>Incorrect</p>
-        <div className='wordCardBlue'>
-          <p>{sentenceObj.englishSentence.join(" ")}</p>
-        </div>
-        </>
-      )
-    }
-    console.log(outcomeDisplay)
   }
   
   return (
@@ -78,7 +87,7 @@ function PracticeAll() {
         {wordDisplay}
       </div>
       <div>
-        <button onClick={handleClick}>Submit</button>
+        <button onClick={handleClick}>{getNextSentence? "Next" : "Submit"}</button>
       </div>
     </div>
   )
