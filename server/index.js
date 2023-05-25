@@ -14,7 +14,7 @@ const {register, login} = require("./controllers/auth")
 const {authenticator} = require("./middleware/authenticator")
 const {seedBooks} = require("./seed/seedBooks")
 const {seedBookOne} = require("./seed/seedBookOne")
-const {getPublicBooks, addPersonalBook, getPersonalBooks, deletePersonalBook, getRandomSentence} = require("./controllers/general")
+const {getPublicBooks, addPersonalBook, getPersonalBooks, deletePersonalBook, getRandomSentence, updateSentence} = require("./controllers/general")
 
 
 User.hasMany(UserBook)
@@ -44,6 +44,7 @@ app.get("/api/getPersonalBooks/:userId", authenticator, getPersonalBooks)
 app.get("/api/getRandomSentence/:userId", authenticator, getRandomSentence)
 app.post("/api/addPersonalBook/:bookId/:userId", authenticator, addPersonalBook)
 app.delete("/api/deletePersonalBook/:bookId/:userId", authenticator, deletePersonalBook)
+app.put("/api/updateSentence", authenticator, updateSentence)
 
 
 sequelize.sync().then(() => {

@@ -44,12 +44,6 @@ function PracticeAll() {
       setOutcomeDisplay("")
       loadSentence()
       setGetNextSentence(false)
-      axios.put("http://localhost:4000/api/updateSentence", {pass: true}, {headers: {authorization: authContext.token}}).then((res) => {
-        console.log("sentenceGrade Updated")
-      }).catch((err)=> {
-        console.log(err)
-        console.log("unable to update SentenceGrade")
-      })
     } else {
       let perfectMatch = true
       setGetNextSentence(true)
@@ -63,7 +57,13 @@ function PracticeAll() {
         perfectMatch = false
       }
       if(perfectMatch) {
-        setOutcomeDisplay(<p>Correct</p>  )
+        setOutcomeDisplay(<p>Correct</p>)
+        axios.put("http://localhost:4000/api/updateSentence", {pass: true, sentenceId: sentenceObj.sentenceId, userId: authContext.userId}, {headers: {authorization: authContext.token}}).then((res) => {
+          console.log("sentenceGrade Updated")
+        }).catch((err)=> {
+          console.log(err)
+          console.log("unable to update SentenceGrade")
+        })
       } else {
         setOutcomeDisplay(
           <>
@@ -73,13 +73,13 @@ function PracticeAll() {
           </div>
           </>
         )
+        axios.put("http://localhost:4000/api/updateSentence", {pass: false, sentenceId: sentenceObj.sentenceId, userId: authContext.userId}, {headers: {authorization: authContext.token}}).then((res) => {
+          console.log("sentenceGrade Updated")
+        }).catch((err)=> {
+          console.log(err)
+          console.log("unable to update SentenceGrade")
+        })
       }
-      axios.put("http://localhost:4000/api/updateSentence", {pass: false}, {headers: {authorization: authContext.token}}).then((res) => {
-        console.log("sentenceGrade Updated")
-      }).catch((err)=> {
-        console.log(err)
-        console.log("unable to update SentenceGrade")
-      })
     }
   }
   

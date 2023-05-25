@@ -1,6 +1,7 @@
 const {PublicBook} = require("../models/publicBook")
 const {UserBook} = require("../models/userBook")
 const {Sentence} = require("../models/sentence")
+const {SentenceGrade} = require("../models/sentenceGrades")
 const {Op} = require("sequelize")
 const axios = require("axios")
 const {sequelize} = require("../util/database")
@@ -160,5 +161,31 @@ module.exports = {
         }
         
         
+    },
+    updateSentence: async (req, res) => {
+        const {pass, sentenceId, userId} = req.body
+        try {
+            const foundSentenceGrade = await SentenceGrade.findOne({
+                where: {
+                    userId: userId,
+                    sentenceId: sentenceId
+                }
+            })
+            if (foundSentenceGrade) {
+                foundSentenceGrade.pass = pass
+                foundSentenceGrade.save()
+                res.sendStatus(200)
+            } else {
+                const createdSentenceGrade = await SentenceGrade.create({
+                    userId: userId,
+                    sentenceId: sentenceId,
+                    pass: pass
+                })
+                res.sendStatus(200)
+            }
+        } catch (err) {
+            console.log(err)
+            res.status(400).send("unable to update sentenceGrade")
+        }
     }
 }
