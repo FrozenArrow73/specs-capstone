@@ -16,9 +16,8 @@ function PracticeAll() {
   const [outcomeDisplay, setOutcomeDisplay] = useState("")
   const [getNextSentence, setGetNextSentence] = useState(false)
 
-  const LoadSentence = () => {
+  const loadSentence = () => {
     axios.get(`http://localhost:4000/api/getRandomSentence/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res)=>{
-      console.log(res.data)
       setSentenceObj({
         targetLanguageSentence: res.data.targetLanguageSentence,
         englishSentence: res.data.englishSentence.split(" "),
@@ -31,7 +30,7 @@ function PracticeAll() {
   }
 
   useEffect(()=>{
-    LoadSentence()
+    loadSentence()
   }, [])
   const wordDisplay = sentenceObj.words.map((word, index) => {
     return <Word key={index} word={word} index={index} setSentenceObj={setSentenceObj} getNextSentence={getNextSentence}/>
@@ -43,8 +42,14 @@ function PracticeAll() {
   const handleClick = (event) => {
     if(getNextSentence) {
       setOutcomeDisplay("")
-      LoadSentence()
+      loadSentence()
       setGetNextSentence(false)
+      axios.put("http://localhost:4000/api/updateSentence", {pass: true}, {headers: {authorization: authContext.token}}).then((res) => {
+        console.log("sentenceGrade Updated")
+      }).catch((err)=> {
+        console.log(err)
+        console.log("unable to update SentenceGrade")
+      })
     } else {
       let perfectMatch = true
       setGetNextSentence(true)
@@ -69,6 +74,12 @@ function PracticeAll() {
           </>
         )
       }
+      axios.put("http://localhost:4000/api/updateSentence", {pass: false}, {headers: {authorization: authContext.token}}).then((res) => {
+        console.log("sentenceGrade Updated")
+      }).catch((err)=> {
+        console.log(err)
+        console.log("unable to update SentenceGrade")
+      })
     }
   }
   
