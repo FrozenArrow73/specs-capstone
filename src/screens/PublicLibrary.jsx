@@ -18,8 +18,9 @@ function PublicLibrary({personalBooks, setPersonalBooks, publicBooks, setPublicB
     const bookDisplay = publicBooks.map((book)=> {
         return <PublicBookCard key={book.id} bookId={book.id} title={book.title} imgUrl={book.img_url} language={book.language} setPublicBooks={setPublicBooks} setPersonalBooks={setPersonalBooks}/>
     })
+    const emptyDisplay = <p>No books available to display</p>
   return (
-    <div className='library'>{bookDisplay}</div>
+    <div className='library'>{!bookDisplay[0] && emptyDisplay}{bookDisplay}</div>
   )
 }
 
