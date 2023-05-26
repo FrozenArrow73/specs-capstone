@@ -26,6 +26,8 @@ function PracticeAll() {
         words: res.data.englishSentence.split(" ")
       })
       
+    }).catch((err)=> {
+      console.log(err)
     })
   }
 
@@ -42,6 +44,13 @@ function PracticeAll() {
   const handleClick = (event) => {
     if(getNextSentence) {
       setOutcomeDisplay("")
+      setSentenceObj({
+        targetLanguageSentence: "",
+        englishSentence: [],
+        sentenceId: null,
+        answer: [],
+        words: []
+      })
       loadSentence()
       setGetNextSentence(false)
     } else {
@@ -82,9 +91,10 @@ function PracticeAll() {
       }
     }
   }
-  
+  const sentenceUnavalableDisplay = <p>No sentences to practice</p>
   return (
     <div className='practice'>
+      {!sentenceObj.targetLanguageSentence && sentenceUnavalableDisplay}
       {outcomeDisplay}
       <div className='wordCard'>
         <p>
