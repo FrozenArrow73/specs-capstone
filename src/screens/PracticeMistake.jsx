@@ -23,7 +23,7 @@ function PracticeMistake() {
         englishSentence: res.data.englishSentence.split(" "),
         sentenceId: res.data.sentenceId,
         answer: [],
-        words: res.data.englishSentence.split(" ")
+        words: res.data.englishSentence.split(" ").sort(()=> 0.5 - Math.random())
       })
       
     }).catch((err) => {
@@ -109,9 +109,11 @@ function PracticeMistake() {
       </div>
       <div className='wordCard'>
         {answerDisplay}
+        <p></p>
       </div>
       <div className='wordCard'>
         {wordDisplay}
+        <p></p>
       </div>
       <div>
         <button onClick={handleClick}>{getNextSentence? "Next" : "Submit"}</button>

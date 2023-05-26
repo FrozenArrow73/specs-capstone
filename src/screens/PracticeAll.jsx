@@ -23,7 +23,7 @@ function PracticeAll() {
         englishSentence: res.data.englishSentence.split(" "),
         sentenceId: res.data.sentenceId,
         answer: [],
-        words: res.data.englishSentence.split(" ")
+        words: res.data.englishSentence.split(" ").sort(()=> 0.5 - Math.random())
       })
       
     }).catch((err)=> {
@@ -102,9 +102,11 @@ function PracticeAll() {
         </p>
       </div>
       <div className='wordCard'>
+        <p></p>
         {answerDisplay}
       </div>
       <div className='wordCard'>
+        <p></p>
         {wordDisplay}
       </div>
       <div>
