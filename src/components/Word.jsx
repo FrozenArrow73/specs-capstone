@@ -11,7 +11,7 @@ function Word(props) {
         }
     }
   return (
-    <p onClick={handleClick}>{props.word}</p>
+    <p onClick={handleClick} className='word'>{props.word}</p>
   )
 }
 

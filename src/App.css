@@ -109,3 +109,6 @@
      border-radius: 10px;
  
  }
+.word{
+  cursor: pointer;
+}

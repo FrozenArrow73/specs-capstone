@@ -11,7 +11,7 @@ function Answer(props) {
         }
     }
   return (
-    <p onClick={handleClick}>{props.answer}</p>
+    <p onClick={handleClick} className='word'>{props.answer}</p>
   )
 }
 
