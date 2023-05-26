@@ -48,17 +48,26 @@ function PracticeMistake() {
   const handleClick = (event) => {
     if(getNextSentence) {
       setOutcomeDisplay("")
+      setSentenceObj({
+        targetLanguageSentence: "",
+        englishSentence: [],
+        sentenceId: null,
+        answer: [],
+        words: []
+      })
       loadSentence()
       setGetNextSentence(false)
     } else {
       let perfectMatch = true
       setGetNextSentence(true)
-      if (sentenceObj.englishSentence.length === sentenceObj.answer.length) {
+      if (sentenceObj.englishSentence.length === sentenceObj.answer.length && sentenceObj.englishSentence.length !== 0) {
         sentenceObj.englishSentence.forEach((word, index) =>{
           if (word !== sentenceObj.answer[index]) {
             perfectMatch = false
           }
         })
+      } else if (sentenceObj.englishSentence.length === 0) {
+        return
       } else {
         perfectMatch = false
       }
@@ -88,9 +97,10 @@ function PracticeMistake() {
       }
     }
   }
-  
+  const sentenceUnavalableDisplay = <p>No mistakes to practice</p>
   return (
     <div className='practice'>
+      {!sentenceObj.targetLanguageSentence && sentenceUnavalableDisplay}
       {outcomeDisplay}
       <div className='wordCard'>
         <p>
