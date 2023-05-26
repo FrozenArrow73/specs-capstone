@@ -19,8 +19,9 @@ function PersonalLibrary({personalBooks, setPersonalBooks, setPublicBooks}) {
       return <PersonalBookCard key={book.id} bookId={book.id} title={book.title} imgUrl={book.img_url} language={book.language} setPublicBooks={setPublicBooks} setPersonalBooks={setPersonalBooks}/>
     })
   }, [personalBooks])
+  const emptyDisplay = <p>No books available to display</p>
   return (
-    <div className='library'>{personalDisplay}</div>
+    <div className='library'>{!personalDisplay[0] && emptyDisplay}{personalDisplay}</div>
   )
 }
 
