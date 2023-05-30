@@ -15,6 +15,7 @@ const {authenticator} = require("./middleware/authenticator")
 const {seedBooks} = require("./seed/seedBooks")
 const {seedBookOne} = require("./seed/seedBookOne")
 const {seedBookTwo} = require("./seed/seedBookTwo")
+const {seedBookThree} = require("./seed/seedBookThree")
 const {getPublicBooks, addPersonalBook, getPersonalBooks, deletePersonalBook, getRandomSentence, updateSentence, getMistakeSentence} = require("./controllers/general")
 
 
@@ -39,6 +40,7 @@ app.post("/api/login", login)
 //app.get("/api/seedBooks", seedBooks)
 //app.get("/api/seedBookOne", seedBookOne)
 //app.get("/api/seedBookTwo", seedBookTwo)
+app.get("/api/seedBookThree", seedBookThree)
 
 app.get("/api/authorization", authenticator, (req, res)=> {res.sendStatus(200)})
 app.get("/api/getPublicBooks/:userId", authenticator, getPublicBooks)
