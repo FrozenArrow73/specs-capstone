@@ -139,20 +139,20 @@ module.exports = {
             data: encodedParams,
             };
 
-            //const response = await axios.request(options);
+            const response = await axios.request(options);
 
-            // const responseBody = {
-            //     targetLanguageSentence: foundSentence[0].value,
-            //     englishSentence: response.data.data.translatedText,
-            //     sentenceId: foundSentence[0].id
-            // }
+            const responseBody = {
+                targetLanguageSentence: foundSentence[0].value,
+                englishSentence: response.data.data.translatedText,
+                sentenceId: foundSentence[0].id
+            }
 
             //!dummy data so I dont accidentially overuse the API
-            const responseBody = {
-                targetLanguageSentence: "Hola, cómo estás.",
-                englishSentence: "Hi, how are you.",
-                sentenceId: 1
-            }
+            // const responseBody = {
+            //     targetLanguageSentence: "Hola, cómo estás.",
+            //     englishSentence: "Hi, how are you.",
+            //     sentenceId: 1
+            // }
 
             res.status(200).send(responseBody)
         } catch (err) {
