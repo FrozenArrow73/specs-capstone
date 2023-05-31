@@ -18,6 +18,7 @@ function PracticeAll() {
 
   const loadSentence = () => {
     axios.get(`http://localhost:4000/api/getRandomSentence/${authContext.userId}`, {headers: {authorization: authContext.token}}).then((res)=>{
+      console.log(res.data)
       setSentenceObj({
         targetLanguageSentence: res.data.targetLanguageSentence,
         englishSentence: res.data.englishSentence.split(" "),

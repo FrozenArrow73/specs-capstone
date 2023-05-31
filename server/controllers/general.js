@@ -109,9 +109,11 @@ module.exports = {
                 include: [
                     {
                         model: PublicBook,
+                        required: true,
                         include: [
                             {
                                 model: UserBook,
+                                required: true,
                                 where: {
                                     userId: userId
                                 }
